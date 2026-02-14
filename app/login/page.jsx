@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
+import LogoSvg  from "@/app/Components/logoSvg"
 export default function Login() {
 
     const router = useRouter();
@@ -49,8 +49,9 @@ export default function Login() {
         onSubmit={handleLogin}
         className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-12 flex flex-col items-center gap-8"
       >
-        {/* Logo */}
-        <Image src="/logo.png" width={220} height={220} alt="ShopSphere Logo" />
+        
+        <LogoSvg/>
+    
 
         {/* Title */}
         <h1 className="text-4xl font-bold text-gray-900">Welcome Back</h1>
