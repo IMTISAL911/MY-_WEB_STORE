@@ -12,7 +12,9 @@ export default function ProductCard({ product }) {
     <div className="bg-white rounded-xl shadow p-4 flex flex-col gap-3 hover:shadow-lg transition">
 
       {/* Click card → open product detail */}
-      <Link href={`/PRODUCT/${product.id}`}>
+      {/* <Link href={`/PRODUCT/${product.id}`}> */}
+      <Link href={`/product/${product.id}`}>
+
         <div className="cursor-pointer flex flex-col gap-2">
           <Image
             src={product.image}
