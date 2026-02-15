@@ -1,10 +1,14 @@
-export default function SearchBar({ value, onChange }) {
+import { useDispatch } from "react-redux";
+import { searchProducts } from "../redux/productSlice";
+
+export default function SearchBar() {
+  const dispatch = useDispatch();
+
   return (
     <input
       placeholder="Search products..."
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      className="border p-3 rounded-xl w-full"
+      className="border p-2 rounded w-96"
+      onChange={(e) => dispatch(searchProducts(e.target.value))}
     />
   );
 }

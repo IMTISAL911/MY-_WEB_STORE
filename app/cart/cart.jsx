@@ -1,34 +1,34 @@
 "use client";
 import { useSelector, useDispatch } from "react-redux";
-import { updateQuantity } from "@/app/redux/cartSlice";
+import { increaseQty, decreaseQty } from "../redux/cartSlice";
 
 export default function Cart() {
+  const { items } = useSelector(s => s.cart);
   const dispatch = useDispatch();
-  const items = useSelector((s) => s.cart.items);
 
   const total = items.reduce(
-    (sum, i) => sum + i.price * i.quantity,
+    (sum, i) => sum + i.price * i.qty,
     0
   );
 
   return (
     <div className="p-10">
-      {items.map((i) => (
-        <div key={i.id} className="flex justify-between mb-4">
-          <h3>{i.title}</h3>
-          <input
-            type="number"
-            value={i.quantity}
-            onChange={(e) =>
-              dispatch(updateQuantity({ id: i.id, quantity: +e.target.value }))
-            }
-            className="border w-16 text-center"
-          />
-          <p>${i.price * i.quantity}</p>
+      <h1 className="text-3xl font-bold">Shopping Cart</h1>
+
+      {items.map(i => (
+        <div key={i.id} className="flex justify-between p-4 border">
+          <span>{i.title}</span>
+          <div>
+            <button onClick={() => dispatch(decreaseQty(i.id))}>-</button>
+            {i.qty}
+            <button onClick={() => dispatch(increaseQty(i.id))}>+</button>
+          </div>
         </div>
       ))}
 
-      <h2 className="text-2xl font-bold mt-6">Total: ${total.toFixed(2)}</h2>
+      <h2 className="text-xl font-bold mt-6">
+        Total: ${total.toFixed(2)}
+      </h2>
     </div>
   );
 }

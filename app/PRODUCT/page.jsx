@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { fetchProductByIdApi } from "@/app/Services/api/productApi";
+import Image from "next/image";
+import { fetchProductByIdApi } from "../../Services/api/productApi";
 import { useDispatch } from "react-redux";
-import { addToCart } from "@/app/redux/cartSlice";
+import { addToCart } from "../../redux/cartSlice";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -15,20 +16,29 @@ export default function ProductDetail() {
     fetchProductByIdApi(id).then(setProduct);
   }, [id]);
 
-  if (!product) return <p>Loading...</p>;
+  if (!product) return <p className="p-10">Loading...</p>;
 
   return (
-    <div className="p-10 flex gap-10">
-      <img src={product.image} className="w-64" />
+    <div className="p-10 grid md:grid-cols-2 gap-10 bg-gray-100 min-h-screen">
 
-      <div>
-        <h1 className="text-2xl font-bold">{product.title}</h1>
+      <Image
+        src={product.image}
+        width={400}
+        height={400}
+        alt=""
+        className="object-contain"
+      />
+
+      <div className="flex flex-col gap-6">
+        <h1 className="text-3xl font-bold">{product.title}</h1>
         <p className="text-gray-600">{product.description}</p>
-        <p className="text-xl font-bold mt-2">${product.price}</p>
+        <p className="text-2xl font-bold text-orange-600">
+          ${product.price}
+        </p>
 
         <button
           onClick={() => dispatch(addToCart(product))}
-          className="bg-orange-500 text-white px-6 py-3 rounded-xl mt-4"
+          className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold"
         >
           Add to Cart
         </button>
