@@ -26,11 +26,12 @@ export default function ProductDetail() {
         width={400}
         height={400}
         alt=""
+        unoptimized
         className="object-contain"
       />
 
       <div className="flex flex-col gap-6">
-        <h1 className="text-3xl font-bold">{product.title}</h1>
+        <h1 className="text-3xl text-gray-600 font-bold">{product.title}</h1>
         <p className="text-gray-600">{product.description}</p>
         <p className="text-2xl font-bold text-orange-600">
           ${product.price}

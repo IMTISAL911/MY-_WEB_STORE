@@ -21,6 +21,7 @@ export default function ProductCard({ product }) {
             width={150}
             height={150}
             alt=""
+            unoptimized
             className="mx-auto h-40 object-contain"
           />
 
