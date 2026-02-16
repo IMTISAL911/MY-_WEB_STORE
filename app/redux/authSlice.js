@@ -1,35 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+const storedAuth = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("auth")) : null;
+
+const initialState = storedAuth || {
   isLoggedIn: false,
   userEmail: "",
 };
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     loginSuccess: (state, action) => {
       state.isLoggedIn = true;
       state.userEmail = action.payload.userEmail;
-      if (typeof window !== "undefined") {
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("userEmail", action.payload.userEmail);
-      }
+      localStorage.setItem("auth", JSON.stringify(state)); // persist
     },
     logout: (state) => {
       state.isLoggedIn = false;
       state.userEmail = "";
-      if (typeof window !== "undefined") {
-        localStorage.removeItem("isLoggedIn");
-        localStorage.removeItem("userEmail");
-      }
+      localStorage.removeItem("auth");
     },
-    hydrateAuthFromStorage: (state) => {
-      if (typeof window !== "undefined") {
-        state.isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-        state.userEmail = localStorage.getItem("userEmail") || "";
-      }
+    hydrateAuthFromStorage: (state, action) => {
+      state.isLoggedIn = action.payload.isLoggedIn;
+      state.userEmail = action.payload.userEmail;
     },
   },
 });

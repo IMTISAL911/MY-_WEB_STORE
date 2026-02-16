@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Provider, useDispatch } from "react-redux";
 import { store } from "./redux/store";
 import { hydrateAuthFromStorage } from "./redux/authSlice";
-import { hydrateCart } from "./redux/cartSlice"; // ✅ updated
+import { hydrateCart } from "./redux/cartSlice";
 
 export default function ClientProvider({ children }) {
   return (
