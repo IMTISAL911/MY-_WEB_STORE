@@ -27,9 +27,9 @@ export default function Cart() {
   if (!cart.length) return <p className="p-10">Cart is empty</p>;
 
   return (
-    <div className="p-10">
+    <div className="p-10  bg-gray-400 min-h-screen">
       {cart.map((item) => (
-        <div key={item.id} className="flex items-center gap-4 mb-4">
+        <div key={item.id} className="flex items-center gap-4 mb-4 ">
 
           <Image 
             src={item.image} 
