@@ -9,6 +9,7 @@ import LogoSvg from "@/app/Components/logoSvg";
 import { useDispatch } from "react-redux";
 import { loginSuccess } from "@/app/redux/authSlice";
 import { loginApi } from "../Services/api/authApi"; // ✅ import mock API
+import { hydrateCart } from "../redux/cartSlice";
 
 export default function Login() {
   const router = useRouter();
@@ -46,7 +47,15 @@ export default function Login() {
       const response = await loginApi({ email, password });
 
       // save to Redux
-      dispatch(loginSuccess({ userEmail: response.user.email }));
+      // dispatch(loginSuccess({ userEmail: response.user.email }));
+
+      const userEmail = response.user.email;
+
+// save auth
+dispatch(loginSuccess({ userEmail }));
+
+// 🔥 VERY IMPORTANT — hydrate cart for this user
+dispatch(hydrateCart(userEmail));
 
       // redirect after fake delay
       setTimeout(() => {
